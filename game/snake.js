@@ -8,44 +8,50 @@ const ctx = board.getContext("2d");
 const snake = [
 	{ x: 60, y: 0 },
 	{ x: 50, y: 0 },
-	{ x: 40, y: 0 },
-	{ x: 30, y: 0 },
-	{ x: 20, y: 0 },
+	// { x: 40, y: 0 },
+	// { x: 30, y: 0 },
+	// { x: 20, y: 0 },
 ];
+const NEUTRAL = 0;
+
+const HORIZONT_LEFT = -10;
+const HORIZONT_RIGT = 10;
+
+const VERTICAL_UP = -10;
+const VERTICAL_DOWN = 10;
 // horizontal velocity
-let dx = 10;
+let dx = NEUTRAL;
 
 // vertical velocity
-let dy = 10;
+let dy = NEUTRAL;
 
 let reqId;
 let timeOut;
+//easy/ medium/ hard/
+let interval = 150;
 
 gameOn();
 function gameOn() {
 	document.addEventListener("keydown", (e) => {
 		e.preventDefault();
-		console.log(e);
 
-		if (e.key == "ArrowRight") {
-			cancelAnimationFrame(reqId);
-			clearTimeout(timeOut);
+		let goingLeft = dx == HORIZONT_LEFT;
+		let goingRight = dx == HORIZONT_RIGT;
+		let goingUp = dy == VERTICAL_UP;
+		let goingDown = dy == VERTICAL_DOWN;
+		console.log("DX: " + Math.sign(dx));
+		console.log("DY: " + Math.sign(dy));
+		if (e.key == "ArrowRight" && (!goingLeft || dx == NEUTRAL)) {
 			moveSnake("X", "right");
 		}
-		if (e.key == "ArrowLeft") {
-			cancelAnimationFrame(reqId);
-			clearTimeout(timeOut);
+		if (e.key == "ArrowLeft" && (!goingRight || dx == NEUTRAL)) {
 			moveSnake("X", "left");
 		}
-		if (e.key == "ArrowUp") {
-			cancelAnimationFrame(reqId);
-			clearTimeout(timeOut);
+		if (e.key == "ArrowUp" && (!goingDown || dy == NEUTRAL)) {
 			moveSnake("Y", "up");
 			console.log("Pressed: " + e.key);
 		}
-		if (e.key == "ArrowDown") {
-			cancelAnimationFrame(reqId);
-			clearTimeout(timeOut);
+		if (e.key == "ArrowDown" && (!goingUp || dy == NEUTRAL)) {
 			moveSnake("Y", "down");
 			console.log("Pressed: " + e.key);
 		}
@@ -90,7 +96,7 @@ function toRight(axis, direction) {
 		// drawSnake();
 		cancelAnimationFrame(reqId);
 		reqId = requestAnimationFrame(toRight);
-	}, 100);
+	}, interval);
 }
 function toLeft(axis, direction) {
 	timeOut = setTimeout(() => {
@@ -99,7 +105,7 @@ function toLeft(axis, direction) {
 
 		cancelAnimationFrame(reqId);
 		reqId = requestAnimationFrame(toLeft);
-	}, 100);
+	}, interval);
 }
 function toDown(axis, direction) {
 	timeOut = setTimeout(() => {
@@ -107,7 +113,7 @@ function toDown(axis, direction) {
 		// drawSnake();
 		cancelAnimationFrame(reqId);
 		reqId = requestAnimationFrame(toDown);
-	}, 100);
+	}, interval);
 }
 function toUp(axis, direction) {
 	timeOut = setTimeout(() => {
@@ -115,31 +121,47 @@ function toUp(axis, direction) {
 		// drawSnake();
 		cancelAnimationFrame(reqId);
 		reqId = requestAnimationFrame(toUp);
-	}, 100);
+	}, interval);
 }
 
-function updateAxis(direction) {
-	if (direction == "right") {
-		if (Math.sign(dx) == -1) {
-			dx *= -1; //transform from negative to positive number
-		}
-	} else if (direction == "left") {
-		if (Math.sign(dx) == 1) {
-			dx *= -1; //transform from positive to negative number
-		}
-	}
-	if (direction == "down") {
-		if (Math.sign(dy) == -1) {
-			dy *= -1; //transform from negative to positive number
-		}
-	} else if (direction == "up") {
-		if (Math.sign(dy) == 1) {
-			dy *= -1; //transform from positive to negative number
-		}
+function updateAxis(pressedButton) {
+	// let lastHorizontalAxisLeft = Math.sign(dx) == -1;
+	// let lastVerticalAxisUp = Math.sign(dy) == -1;
+	// let lastHorizontalAxisRight = Math.sign(dx) == 1;
+	// let lastVerticalAxisDown = Math.sign(dy) == 1;
+	// 	const NEUTRAL = 0
+
+	// const HORIZONT_LEFT_DIRECTION = -10;
+	// const HORIZONT_RIGT_DIRECTION = -10;
+
+	// const VERTICAL_UP_DIRECTION = -10
+	// const VERTICAL_DOWN_DIRECTION = 10
+	if (pressedButton == "right") {
+		// if (Math.sign(dx) == -1) {
+		dx = HORIZONT_RIGT;
+		dy = NEUTRAL; //transform from negative to positive number
+		// }
+	} else if (pressedButton == "left") {
+		// if (Math.sign(dx) == 1) {
+		dx = HORIZONT_LEFT; //transform from positive to negative number
+		dy = NEUTRAL;
+		// }
+	} else if (pressedButton == "down") {
+		// if (Math.sign(dy) == -1) {
+		dy = VERTICAL_DOWN; //transform from negative to positive number
+		dx = NEUTRAL;
+		// }
+	} else if (pressedButton == "up") {
+		// if (Math.sign(dy) == 1) {
+		dy = VERTICAL_UP; //transform from positive to negative number
+		dx = NEUTRAL;
+
+		// }
 	}
 }
 function moveSnake(axis, direction) {
 	cancelAnimationFrame(reqId);
+	clearTimeout(timeOut);
 	updateAxis(direction);
 	if (direction == "right") {
 		toRight(axis, direction);
