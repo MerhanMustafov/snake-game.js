@@ -8,11 +8,28 @@
 		<link rel="stylesheet" href="./css/style.css" />
 	</head>
 	<body>
-		<div class="foods">
-			<img class="star" src="./images/star-regular.svg" alt="" />
+		<div id="root">
+			<div class="game-background-choses">
+				<!-- <i class="fa-solid fa-palette"></i> -->
+				<i class="fa-solid fa-brush"></i>
+				<div class="drop-down-images">
+					<div class="img-c">
+						<img src="./images/one.jpg" alt="" />
+					</div>
+					<div class="img-c">
+						<img src="./images/two.jpg" alt="" />
+					</div>
+					<div class="img-c">
+						<img src="./images/three.jpg" alt="" />
+					</div>
+					<div class="img-c">
+						<img src="./images/four.jpg" alt="" />
+					</div>
+				</div>
+			</div>
+
+			<canvas id="board"></canvas>
 		</div>
-		<img class="star" src="./images/star-regular.svg" alt="" />
-		<canvas id="board"></canvas>
 		<script type="module" src="./index.js"></script>
 	</body>
 </html>

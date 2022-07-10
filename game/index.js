@@ -1,28 +1,29 @@
 /** @type {HTMLCanvasElement} */
 import { generateRandomFoodPosition, food } from "./food.js";
 const board = document.querySelector("#board");
-board.width = window.innerWidth * 0.8;
-board.height = window.innerHeight * 0.75;
+// board.width = window.innerWidth * 0.8;
+// board.height = window.innerHeight * 0.75;
 
 const ctx = board.getContext("2d");
 let reqId;
 let timeOut;
 //easy/ medium/ hard/
-let interval = 150;
+let interval = 40;
 
+let SIZE = 5;
 const NEUTRAL = 0;
-const HORIZONT_LEFT = -15;
-const HORIZONT_RIGT = 15;
-const VERTICAL_UP = -15;
-const VERTICAL_DOWN = 15;
+const HORIZONT_LEFT = -SIZE;
+const HORIZONT_RIGT = SIZE;
+const VERTICAL_UP = -SIZE;
+const VERTICAL_DOWN = SIZE;
 // horizontal velocity
 let dx = NEUTRAL;
 // vertical velocity
 let dy = NEUTRAL;
 
 const snake = [
-	{ x: 65, y: 10 },
-	{ x: 50, y: 10 },
+	{ x: 60, y: 10 },
+	// { x: snake[0] - SIZE, y: 10 },
 ];
 
 generateRandomFoodPosition();
@@ -56,8 +57,10 @@ function drawSnake() {
 	clearBoard();
 	snake.forEach((part) => {
 		ctx.beginPath();
-		ctx.rect(part.x, part.y, 15, 15);
-		ctx.fillStyle = "white"; //inside color
+		ctx.rect(part.x, part.y, SIZE, SIZE);
+		// ctx.fillStyle = "white"; //inside color
+		// ctx.fillStyle = "rgba(118, 29, 45)"; //inside color
+		ctx.fillStyle = "rgba(85, 188, 251)"; //inside color
 		ctx.fill(); //inside color
 		// ctx.strokeStyle = "red"; //border color
 		// ctx.strokeStyle = "rgba(118, 29, 45)"; //border color
@@ -67,7 +70,7 @@ function drawSnake() {
 	hasGameEnded();
 
 	ctx.beginPath();
-	ctx.rect(food.x, food.y, 15, 15);
+	ctx.rect(food.x, food.y, SIZE, SIZE);
 	ctx.fillStyle = "white";
 	ctx.fill();
 	ctx.stroke();
@@ -80,21 +83,21 @@ function hasEaten() {
 	console.log(`snake Y: ${snakeHeadY} food Y ${food.y}`);
 	if (
 		(dx == HORIZONT_RIGT || dx == HORIZONT_LEFT) &&
-		between(snakeHeadY, food.y - 10, food.y + 10) &&
-		between(snakeHeadX, food.x - 10, food.x + 10)
+		between(snakeHeadY, food.y - SIZE, food.y + SIZE) &&
+		between(snakeHeadX, food.x - SIZE, food.x + SIZE)
 	) {
 		generateRandomFoodPosition();
-		let head = { x: snake[0].x + 10, y: snake[0].y };
+		let head = { x: snake[0].x + SIZE, y: snake[0].y };
 		snake.unshift(head);
 		drawSnake();
 	}
 	if (
 		(dy == VERTICAL_DOWN || dy == VERTICAL_UP) &&
-		between(snakeHeadX, food.x - 10, food.x + 10) &&
-		between(snakeHeadY, food.y - 10, food.y + 10)
+		between(snakeHeadX, food.x - SIZE, food.x + SIZE) &&
+		between(snakeHeadY, food.y - SIZE, food.y + SIZE)
 	) {
 		generateRandomFoodPosition();
-		let head = { x: snake[0].x, y: snake[0].y + 10 };
+		let head = { x: snake[0].x, y: snake[0].y + SIZE };
 		snake.unshift(head);
 		drawSnake();
 	}
@@ -102,10 +105,12 @@ function hasEaten() {
 function hasGameEnded() {
 	let snakeHeadX = snake[0].x;
 	let leftWall = 0;
-	let rightWall = Math.trunc(board.width);
+	// let rightWall = Math.trunc(board.width);
+	let rightWall = board.width;
 	let snakeHeadY = snake[0].y;
 	let upWall = 0;
-	let downWall = Math.trunc(board.height);
+	// let downWall = Math.trunc(board.height);
+	let downWall = board.height;
 	if (snakeHeadX >= rightWall) {
 		alert("You hit the wall!");
 	} else if (snakeHeadX < leftWall) {
@@ -197,3 +202,22 @@ function between(foodCordinates, min, max) {
 	// console.log(min <= foodCordinates && foodCordinates <= max);
 	return min <= foodCordinates && foodCordinates <= max;
 }
+
+document.querySelectorAll("img").forEach((i) =>
+	i.addEventListener("click", (e) => {
+		console.log(e);
+		console.log(e.path);
+		console.log(e.path[0].currentSrc);
+		let img = e.path[0].currentSrc;
+		board.style.backgroundImage = `url(${img})`;
+	})
+);
+
+document.querySelector(".fa-brush").addEventListener("click", (e) => {
+	let brushButton = document.querySelector(".drop-down-images");
+	if (brushButton.style.display == "none") {
+		brushButton.style.display = "inline-block";
+	} else {
+		brushButton.style.display = "none";
+	}
+});
