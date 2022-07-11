@@ -3,26 +3,57 @@
 
 #root{
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	margin: 0 auto;
 	
 	height: 100vh;
 	background-color: rgba(30, 30, 30);
 }
 .game-background-choses{
+	border: 2px solid white;
+	border: 2px solid rgb(39, 34, 34);
 	width: 10%;
 	margin: 0 10px 0 0;
+	/* overflow: scroll; */
+	overflow-y: hidden;
+	overflow-x: hidden;
+	
+
 	/* border: 2px solid black; */
 }
+.game-background-choses::-webkit-scrollbar {
+    width: 10px;
+	background-color: transparent;
+	border-radius: 30px;
+	/* display: none; */
+}
+
+/* .game-background-choses::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+} */
+
+.game-background-choses::-webkit-scrollbar-thumb {
+    /* border-radius: 10px; */
+	/* background-color: transparent; */
+	background-color: rgba(2, 2, 2, 0.5);
+	border-radius: 30px;
+	
+} 
+/* .game-background-choses:hover +.game-background-choses::-webkit-scrollbar-thumb{
+    background-color: rgb(255, 255, 255);
+} */
+
 #board{
 	border: 1px solid black;
-	width: 85%;
-	height: auto;
-	
+	width: 1100px;
+	height: 550px;
+	margin: auto auto;
 	background-image: url(../images/one.jpg);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	object-fit: cover;
+	/* object-fit: cover; */
+	/* object-fit: fill; */
 
 }
 .fa-palette, .fa-brush{
@@ -35,18 +66,28 @@
 }
 
 .img-c{
-	width: 100%;
+	width: 90%;
+	height: 250px;
+	margin: 0 auto;
 
 }
 
 .img-c img{
+	/* text-align: center; */
+	/* margin: 0 auto; */
 	border-radius: 30%;
 	border: 2px solid white;
 	width: 100%;
+	height: 300px;
+	object-fit: cover;
+	transition: 0.3s;
 
 
 }
-
+.img-c img:hover{
+	/* transition: 0.7s; */
+	transform: scale(1.03);
+}
 .drop-down-images{
 	display: none;
 	/* background-color: rgb(158, 154, 154); */
