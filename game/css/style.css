@@ -1,95 +1,79 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css);
 @import './reset.css';
 
+body{
+	background-color: rgba(30, 30, 30);
+}
 #root{
 	display: flex;
-	justify-content: space-between;
-	margin: 0 auto;
-	
+	flex-direction: column;
+	gap: 15px;
+	margin: auto auto;
+	width: 100%;
+	max-width: 1920px;
+	max-height: 1080px;
 	height: 100vh;
 	background-color: rgba(30, 30, 30);
 }
 .game-background-choses{
-	border: 2px solid white;
-	border: 2px solid rgb(39, 34, 34);
-	width: 10%;
-	margin: 0 10px 0 0;
-	/* overflow: scroll; */
+	display: flex;
+	width: 80%;
+	height: 100px;
+	margin: 0 auto;
 	overflow-y: hidden;
-	overflow-x: hidden;
-	
-
-	/* border: 2px solid black; */
+	overflow-x: auto;
 }
 .game-background-choses::-webkit-scrollbar {
-    width: 10px;
+	height: 3px;
 	background-color: transparent;
 	border-radius: 30px;
-	/* display: none; */
 }
 
-/* .game-background-choses::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    border-radius: 10px;
-} */
-
 .game-background-choses::-webkit-scrollbar-thumb {
-    /* border-radius: 10px; */
-	/* background-color: transparent; */
-	background-color: rgba(2, 2, 2, 0.5);
+	background-color: rgba(255, 255, 255);
 	border-radius: 30px;
-	
 } 
-/* .game-background-choses:hover +.game-background-choses::-webkit-scrollbar-thumb{
-    background-color: rgb(255, 255, 255);
-} */
 
 #board{
-	border: 1px solid black;
-	width: 1100px;
-	height: 550px;
-	margin: auto auto;
+	border: 4px solid rgb(255, 255, 255);
+	width: 80%;
+	height: 75%;
+	margin: 0 auto;
 	background-image: url(../images/one.jpg);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	/* object-fit: cover; */
-	/* object-fit: fill; */
 
 }
 .fa-palette, .fa-brush{
 	background-color: transparent;
-	display: block;
-	font-size:  40px;
-	text-align: center;
+	font-size:  50px;
 	color: white;
 	padding: 10px;
+	height: 60%;
+	margin: auto auto;
 }
 
 .img-c{
-	width: 90%;
-	height: 250px;
-	margin: 0 auto;
+	display: flex;
+	height: 90%;
+	margin: auto auto;
 
 }
-
 .img-c img{
-	/* text-align: center; */
-	/* margin: 0 auto; */
 	border-radius: 30%;
 	border: 2px solid white;
-	width: 100%;
-	height: 300px;
+	width: 150%;
+	height:90%;
+	margin: auto auto;
 	object-fit: cover;
 	transition: 0.3s;
-
-
 }
 .img-c img:hover{
-	/* transition: 0.7s; */
-	transform: scale(1.03);
+	transform: scale(1.05);
 }
 .drop-down-images{
-	display: none;
-	/* background-color: rgb(158, 154, 154); */
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 

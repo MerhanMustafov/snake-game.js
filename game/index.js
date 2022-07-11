@@ -22,16 +22,14 @@ let dx = NEUTRAL;
 let dy = NEUTRAL;
 
 const snake = [
-	{ x: 60, y: 10 },
-	// { x: snake[0] - SIZE, y: 10 },
+	{ x: 20, y: 10 },
+	// { x: 10 , y: 10 },
 ];
-
 generateRandomFoodPosition();
 drawSnake();
 
 gameOn();
 function gameOn() {
-	// window.localStorage.setItem("lastImage", initialBGimage);
 	document.addEventListener("keydown", (e) => {
 		e.preventDefault();
 		let goingLeft = dx == HORIZONT_LEFT;
@@ -56,20 +54,19 @@ function gameOn() {
 // Draw/Visualize Snake/Food
 function drawSnake() {
 	clearBoard();
-	snake.forEach((part) => {
+	snake.forEach((part, i) => {
 		ctx.beginPath();
 		ctx.rect(part.x, part.y, SIZE, SIZE);
-		// ctx.fillStyle = "white"; //inside color
-		// ctx.fillStyle = "rgba(118, 29, 45)"; //inside color
 		//inside color
 		ctx.fillStyle = "white";
-		ctx.fill(); //inside color
-		// ctx.strokeStyle = "red"; //border color
-		// ctx.strokeStyle = "rgba(118, 29, 45)"; //border color
-		ctx.strokeStyle = "rgba(0, 0, 0, 0.2)"; //border color
+		//border color
+		ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+		ctx.fill();
 		ctx.stroke();
 	});
-	hasGameEnded();
+
+	wallcollision();
+	selfcollision(snake[0].x, snake[0].y);
 
 	ctx.beginPath();
 	ctx.rect(food.x, food.y, SIZE, SIZE);
@@ -82,7 +79,6 @@ function drawSnake() {
 function hasEaten() {
 	let snakeHeadX = snake[0].x;
 	let snakeHeadY = snake[0].y;
-	console.log(`snake Y: ${snakeHeadY} food Y ${food.y}`);
 	if (
 		(dx == HORIZONT_RIGT || dx == HORIZONT_LEFT) &&
 		between(snakeHeadY, food.y - SIZE, food.y + SIZE) &&
@@ -104,14 +100,21 @@ function hasEaten() {
 		drawSnake();
 	}
 }
-function hasGameEnded() {
+function selfcollision(x, y) {
+	for (let i = 3; i < snake.length; i++) {
+		if (x == snake[i].x && y == snake[i].y) {
+			// return true;
+			alert("end hit ITSELF");
+		}
+	}
+	// return false;
+}
+function wallcollision() {
 	let snakeHeadX = snake[0].x;
 	let leftWall = -5;
 	let rightWall = Math.trunc(board.width);
-	// let rightWall = board.width;
 	let snakeHeadY = snake[0].y;
 	let upWall = 0;
-	// let downWall = Math.trunc(board.height);
 	let downWall = board.height;
 	if (snakeHeadX >= rightWall) {
 		alert("You hit the wall!");
@@ -132,7 +135,6 @@ function updateSnakePositionX(axis, direction) {
 }
 function updateSnakePositionY(axis, direction) {
 	const head = { x: snake[0].x, y: snake[0].y + dy };
-
 	snake.unshift(head);
 	snake.pop();
 	drawSnake();
@@ -200,16 +202,12 @@ function clearBoard() {
 	ctx.clearRect(0, 0, innerWidth, innerHeight);
 }
 
-function between(foodCordinates, min, max) {
-	// console.log(min <= foodCordinates && foodCordinates <= max);
-	return min <= foodCordinates && foodCordinates <= max;
+function between(cordinates, min, max, type) {
+	return min <= cordinates && cordinates <= max;
 }
 
 document.querySelectorAll("img").forEach((i) =>
 	i.addEventListener("click", (e) => {
-		// console.log(e);
-		// console.log(e.path);
-		// console.log(e.path[0].currentSrc);
 		let img = e.path[0].currentSrc;
 		localStorage.setItem("lastImage", img);
 		board.style.backgroundImage = `url(${localStorage.getItem(
@@ -218,21 +216,21 @@ document.querySelectorAll("img").forEach((i) =>
 	})
 );
 
-let brushButton = document.querySelector(".drop-down-images");
-// document.querySelector(".fa-brush").addEventListener("click", (e) => {
-// 	if (brushButton.style.display == "none") {
-// 		brushButton.style.display = "inline-block";
-// 	} else {
-// 		brushButton.style.display = "none";
-// 	}
-// });
+// let brushButton = document.querySelector(".drop-down-images");
+// // document.querySelector(".fa-brush").addEventListener("click", (e) => {
+// // 	if (brushButton.style.display == "none") {
+// // 		brushButton.style.display = "inline-block";
+// // 	} else {
+// // 		brushButton.style.display = "none";
+// // 	}
+// // });
 
-let imgS = document.querySelector(".game-background-choses");
-imgS.addEventListener("mouseover", (e) => {
-	imgS.style.overflowY = "auto";
-	brushButton.style.display = "inline-block";
-});
-imgS.addEventListener("mouseout", (e) => {
-	imgS.style.overflowY = "hidden";
-	brushButton.style.display = "none";
-});
+// let imgS = document.querySelector(".game-background-choses");
+// // imgS.addEventListener("mouseover", (e) => {
+// // 	imgS.style.overflowY = "auto";
+// // 	brushButton.style.display = "flex";
+// // });
+// // imgS.addEventListener("mouseout", (e) => {
+// // 	imgS.style.overflowY = "hidden";
+// // 	brushButton.style.display = "none";
+// // });
