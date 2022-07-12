@@ -19,13 +19,11 @@ let dx = NEUTRAL;
 // vertical velocity
 let dy = NEUTRAL;
 
-const snake = [
-	{ x: 20, y: 10 },
-	// { x: 10 , y: 10 },
-];
+const snake = [{ x: 220, y: 10 }];
 
 let arrayOfImages = document.querySelectorAll("img");
 let current_length = document.querySelector(".score-c");
+let imgSection = document.querySelector(".game-background-choses");
 
 // board.width = window.innerWidth * 0.8;
 // board.height = window.innerHeight * 0.75;
@@ -43,16 +41,31 @@ function gameOn() {
 		let goingRight = dx == HORIZONT_RIGT;
 		let goingUp = dy == VERTICAL_UP;
 		let goingDown = dy == VERTICAL_DOWN;
+		let notMoving = !goingLeft && !goingRight && !goingDown && !goingUp;
 		if (e.key == "ArrowRight" && (!goingLeft || dx == NEUTRAL)) {
+			// clearBoard();
+			updateAxis("right");
+			dx = HORIZONT_RIGT;
 			moveSnake("X", "right");
 		}
 		if (e.key == "ArrowLeft" && (!goingRight || dx == NEUTRAL)) {
+			// clearBoard();
+			if (notMoving) {
+				snake.reverse();
+			}
+			updateAxis("left");
+			// dx = HORIZONT_LEFT;
+
 			moveSnake("X", "left");
 		}
 		if (e.key == "ArrowUp" && (!goingDown || dy == NEUTRAL)) {
+			// clearBoard();
+			updateAxis("up");
 			moveSnake("Y", "up");
 		}
 		if (e.key == "ArrowDown" && (!goingUp || dy == NEUTRAL)) {
+			// clearBoard();
+			updateAxis("down");
 			moveSnake("Y", "down");
 		}
 	});
@@ -137,12 +150,14 @@ function updateSnakePositionX(axis, direction) {
 	const head = { x: snake[0].x + dx, y: snake[0].y };
 	snake.unshift(head);
 	snake.pop();
+	updateAxis(direction);
 	drawSnake();
 }
 function updateSnakePositionY(axis, direction) {
 	const head = { x: snake[0].x, y: snake[0].y + dy };
 	snake.unshift(head);
 	snake.pop();
+	updateAxis(direction);
 	drawSnake();
 }
 
@@ -187,6 +202,7 @@ function updateAxis(pressedButton) {
 	}
 }
 function moveSnake(axis, direction) {
+	// clearBoard();
 	cancelAnimationFrame(reqId);
 	clearTimeout(timeOut);
 	updateAxis(direction);
@@ -232,6 +248,20 @@ function hasEnded() {
 	if (last_best_score < snake.length) {
 		localStorage.setItem("bestScore", snake.length);
 	}
-	let hitWall = wallcollision();
-	let hitItself = selfcollision(snake[0].x, snake[0].y);
+	wallcollision();
+	selfcollision(snake[0].x, snake[0].y);
 }
+
+//SCROLL HORIZONTALLY
+imgSection.addEventListener("wheel", (e) => {
+	console.log(e.wheelDelta);
+	//scroll direction Down
+	if (e.wheelDelta < 0) {
+		//scroll direction right
+		imgSection.scrollBy(100, 0);
+		//scroll direction up
+	} else {
+		//scroll direction left
+		imgSection.scrollBy(-100, 0);
+	}
+});
