@@ -1,8 +1,6 @@
 /** @type {HTMLCanvasElement} */
 import { generateRandomFoodPosition, food } from "./food.js";
-board.style.backgroundImage = `url(${localStorage.getItem("lastImage")})`;
-// board.width = window.innerWidth * 0.8;
-// board.height = window.innerHeight * 0.75;
+import { setLocalStorage } from "./localStoreage.js";
 
 const ctx = board.getContext("2d");
 let reqId;
@@ -25,6 +23,15 @@ const snake = [
 	{ x: 20, y: 10 },
 	// { x: 10 , y: 10 },
 ];
+
+let arrayOfImages = document.querySelectorAll("img");
+let current_length = document.querySelector(".score-c");
+
+// board.width = window.innerWidth * 0.8;
+// board.height = window.innerHeight * 0.75;
+setLocalStorage(snake);
+setSnakeLength();
+
 generateRandomFoodPosition();
 drawSnake();
 
@@ -64,9 +71,7 @@ function drawSnake() {
 		ctx.fill();
 		ctx.stroke();
 	});
-
-	wallcollision();
-	selfcollision(snake[0].x, snake[0].y);
+	hasEnded();
 
 	ctx.beginPath();
 	ctx.rect(food.x, food.y, SIZE, SIZE);
@@ -74,6 +79,7 @@ function drawSnake() {
 	ctx.fill();
 	ctx.stroke();
 	hasEaten();
+	setSnakeLength();
 }
 
 function hasEaten() {
@@ -206,7 +212,7 @@ function between(cordinates, min, max, type) {
 	return min <= cordinates && cordinates <= max;
 }
 
-document.querySelectorAll("img").forEach((i) =>
+arrayOfImages.forEach((i) =>
 	i.addEventListener("click", (e) => {
 		let img = e.path[0].currentSrc;
 		localStorage.setItem("lastImage", img);
@@ -216,21 +222,16 @@ document.querySelectorAll("img").forEach((i) =>
 	})
 );
 
-// let brushButton = document.querySelector(".drop-down-images");
-// // document.querySelector(".fa-brush").addEventListener("click", (e) => {
-// // 	if (brushButton.style.display == "none") {
-// // 		brushButton.style.display = "inline-block";
-// // 	} else {
-// // 		brushButton.style.display = "none";
-// // 	}
-// // });
+function setSnakeLength() {
+	current_length.innerText = snake.length;
+}
 
-// let imgS = document.querySelector(".game-background-choses");
-// // imgS.addEventListener("mouseover", (e) => {
-// // 	imgS.style.overflowY = "auto";
-// // 	brushButton.style.display = "flex";
-// // });
-// // imgS.addEventListener("mouseout", (e) => {
-// // 	imgS.style.overflowY = "hidden";
-// // 	brushButton.style.display = "none";
-// // });
+function hasEnded() {
+	// localStorage.setItem("bestScore", 0);
+	let last_best_score = localStorage.getItem("bestScore");
+	if (last_best_score < snake.length) {
+		localStorage.setItem("bestScore", snake.length);
+	}
+	let hitWall = wallcollision();
+	let hitItself = selfcollision(snake[0].x, snake[0].y);
+}

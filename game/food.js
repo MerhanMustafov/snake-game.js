@@ -1,3 +1,5 @@
+export { generateRandomFoodPosition, food };
+
 let food;
 function generateRandomFoodPosition() {
 	let max_x = board.width * 0.97;
@@ -8,5 +10,3 @@ function generateRandomFoodPosition() {
 	let random_y = Math.trunc(Math.random() * (max_y - min_y) + 2);
 	food = { x: random_x, y: random_y };
 }
-
-export { generateRandomFoodPosition, food };
