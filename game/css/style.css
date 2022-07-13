@@ -71,7 +71,7 @@ body{
 }
 .rightSide{
 	grid-area: rightSide;
-	background-color: aqua;
+	/* background-color: aqua; */
 }
 
 .game-background-choses{
