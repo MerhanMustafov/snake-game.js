@@ -120,12 +120,13 @@ function drawSnake() {
     ctx.rect(part.x, part.y, size, size)
     //inside color
     if (i == 0) {
-      ctx.fillStyle = 'rgba(180, 172, 52)'
+      ctx.fillStyle = 'rgba(255, 255, 220)'
+        // ctx.setFillColor(blue)
     } else {
       ctx.fillStyle = 'white'
     }
     //border color
-    ctx.strokeStyle = 'rgba(0, 0, 0, 1)'
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)'
     ctx.fill()
     ctx.stroke()
   })
