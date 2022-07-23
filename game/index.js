@@ -1,14 +1,43 @@
 /** @type {HTMLCanvasElement} */
 import { generateRandomFoodPosition, food } from './food.js'
 import { setLocalStorage } from './localStoreage.js'
-
-let gameIsOn = true
+// import { manageSelected, select } from './SelectImgFeature.js'
+const board = document.querySelector('#board')
 let resetWindow = document.querySelector('.reset-window')
 let resetBtn = document.querySelector('.play')
 
+let arrayOfImages = document.querySelectorAll('img')
+let current_length = document.querySelector('.score-c')
+let imgSection = document.querySelector('.game-background-choses')
+
+const gameOverCheckbox = document.querySelector('#gameOver')
+const select = document.querySelectorAll('.selectedImg')
+
+let gameIsOn = true
+
+;[...select].forEach((b) =>
+  b.addEventListener('click', (e) => {
+    const imageContainer = e.target.parentElement
+    const clickedImg = e.target.parentElement.querySelector('img').src
+    localStorage.setItem('lastImage', clickedImg)
+    board.style.backgroundImage = `url(${clickedImg})`
+
+    ;[...imageContainer.parentElement.children].forEach((imgC) => {
+      const checked = imgC.querySelector('input').checked
+      if (checked) {
+        console.log(imgC)
+        imgC.classList.add('iii')
+      } else {
+        imgC.classList.remove('iii')
+      }
+    })
+  }),
+)
+
 resetBtn.addEventListener('click', (e) => {
-  resetWindow.style.display = 'none'
-  snake = [{ x: 220, y: 10 }]
+  resetWindow.style.visibility = 'hidden'
+  gameOverCheckbox.checked = false
+  snake = [{ x: 70, y: 10 }]
   generateRandomFoodPosition()
   drawSnake()
   dx = NEUTRAL
@@ -35,10 +64,6 @@ let dx = NEUTRAL
 let dy = NEUTRAL
 
 let snake = [{ x: 70, y: 10 }]
-
-let arrayOfImages = document.querySelectorAll('img')
-let current_length = document.querySelector('.score-c')
-let imgSection = document.querySelector('.game-background-choses')
 
 // board.width = window.innerWidth * 0.8;
 // board.height = window.innerHeight * 0.75;
@@ -94,9 +119,13 @@ function drawSnake() {
     ctx.beginPath()
     ctx.rect(part.x, part.y, size, size)
     //inside color
-    ctx.fillStyle = 'white'
+    if (i == 0) {
+      ctx.fillStyle = 'rgba(180, 172, 52)'
+    } else {
+      ctx.fillStyle = 'white'
+    }
     //border color
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)'
+    ctx.strokeStyle = 'rgba(0, 0, 0, 1)'
     ctx.fill()
     ctx.stroke()
   })
@@ -136,12 +165,17 @@ function hasEaten() {
 function selfcollision(x, y) {
   for (let i = 3; i < snake.length; i++) {
     if (x == snake[i].x && y == snake[i].y) {
-      gameIsOn = false
-      resetWindow.style.display = 'block'
+      resetGameWindow()
     }
   }
-  // return false;
 }
+
+function resetGameWindow(value) {
+  gameIsOn = false
+  resetWindow.style.visibility = 'visible'
+  gameOverCheckbox.checked = true
+}
+
 function wallcollision() {
   let snakeHeadX = snake[0].x
   let snakeHeadY = snake[0].y
@@ -149,18 +183,14 @@ function wallcollision() {
   let rightWall = board.width - size
   let upWall = 0
   let downWall = board.height - size
-    if (snakeHeadX >= rightWall) {
-    gameIsOn = false
-    resetWindow.style.display = 'block'
-    } else if (snakeHeadX <= leftWall) {
-    gameIsOn = false
-    resetWindow.style.display = 'block'
+  if (snakeHeadX >= rightWall) {
+    resetGameWindow()
+  } else if (snakeHeadX <= leftWall) {
+    resetGameWindow()
   } else if (snakeHeadY >= downWall) {
-    gameIsOn = false
-    resetWindow.style.display = 'block'
+    resetGameWindow()
   } else if (snakeHeadY <= upWall) {
-    gameIsOn = false
-    resetWindow.style.display = 'block'
+    resetGameWindow()
   }
 }
 

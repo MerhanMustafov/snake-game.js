@@ -142,8 +142,25 @@ body {
 
   background-image: url(../images/one.jpg);
   background-repeat: no-repeat;
+  /* box-shadow: inset 10px 10px 100px gray; */
+  /* opacity: 0.3; */
+  /* animation-name: show;
+  animation-duration: 5s;
+  animation-timing-function: ease; */
+  transition: opacity 7s;
+  /* transition-timing-function: ease-in; */
+  /* -webkit-filter: contrast(1.1); */
   background-size: 100% 100%;
 }
+
+input:checked  #board{
+    opacity: 1;
+}
+/* @keyframes show {
+    0%{opasity: 0;}
+    100%{opacity: 1;}
+} */
+
 .fa-palette,
 .fa-brush {
   background-color: transparent;
@@ -157,13 +174,13 @@ body {
 .img-c {
   display: inline-block;
   /* width: 100px; */
-  width: 50%;
+  width: 90px;
   height: 60px;
   margin: auto auto;
 }
 .img-c img {
   border-radius: 30%;
-  border: 2px solid white;
+  /* border: 2px solid white; */
   width: 150%;
   height: 70px;
   margin: auto auto;
