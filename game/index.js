@@ -1,8 +1,10 @@
 /** @type {HTMLCanvasElement} */
 import { generateRandomFoodPosition, food } from './food.js'
 import { setLocalStorage } from './localStoreage.js'
-// import { manageSelected, select } from './SelectImgFeature.js'
+
+
 const board = document.querySelector('#board')
+const boardCheckbox = document.querySelector('#boardCheckbox')
 let resetWindow = document.querySelector('.reset-window')
 let resetBtn = document.querySelector('.play')
 
@@ -11,24 +13,22 @@ let current_length = document.querySelector('.score-c')
 let imgSection = document.querySelector('.game-background-choses')
 
 const gameOverCheckbox = document.querySelector('#gameOver')
-const select = document.querySelectorAll('.selectedImg')
+const imgsRadioBtns = document.querySelectorAll('.selectedImg')
 
 let gameIsOn = true
 
-;[...select].forEach((b) =>
-  b.addEventListener('click', (e) => {
+;[...imgsRadioBtns].forEach((radioBtn) =>
+  radioBtn.addEventListener('click', (e) => {
     const imageContainer = e.target.parentElement
     const clickedImg = e.target.parentElement.querySelector('img').src
     localStorage.setItem('lastImage', clickedImg)
     board.style.backgroundImage = `url(${clickedImg})`
-
     ;[...imageContainer.parentElement.children].forEach((imgC) => {
       const checked = imgC.querySelector('input').checked
       if (checked) {
-        console.log(imgC)
-        imgC.classList.add('iii')
+        imgC.classList.add('imgStyleOnRadioBtnClick')
       } else {
-        imgC.classList.remove('iii')
+        imgC.classList.remove('imgStyleOnRadioBtnClick')
       }
     })
   }),
@@ -293,20 +293,12 @@ function between(cordinates, min, max, type) {
   return min <= cordinates && cordinates <= max
 }
 
-arrayOfImages.forEach((i) =>
-  i.addEventListener('click', (e) => {
-    let img = e.path[0].currentSrc
-    localStorage.setItem('lastImage', img)
-    board.style.backgroundImage = `url(${localStorage.getItem('lastImage')})`
-  }),
-)
 
 function setSnakeLength() {
   current_length.innerText = snake.length
 }
 
 function hasEnded() {
-  // localStorage.setItem("bestScore", 0);
   let last_best_score = localStorage.getItem('bestScore')
   if (last_best_score < snake.length) {
     localStorage.setItem('bestScore', snake.length)

@@ -1,14 +1,7 @@
-// export {manageSelected, select }
-
-// const select = document.querySelectorAll('.selectedImg')
-
-// [select].forEach(btn => btn.addEventListener('click', (e) => {
-
-//     console.log(e)
-// }))
-// function manageSelected() {
-// console.log(select)
-// console.log(select.name)
-// console.log(select.checked)
-    
-// }
+// arrayOfImages.forEach((i) =>
+//   i.addEventListener('click', (e) => {
+//     let img = e.path[0].currentSrc
+//     localStorage.setItem('lastImage', img)
+//     board.style.backgroundImage = `url(${localStorage.getItem('lastImage')})`
+//   }),
+// )

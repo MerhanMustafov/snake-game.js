@@ -4,101 +4,64 @@
 @import './resetWindow.css';
 
 body {
-    font-family: 'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   background-color: rgba(30, 30, 30);
 }
 
-/* #root{
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-	margin: auto auto;
-	width: 100%;
-	max-width: 1920px;
-	max-height: 1080px;
-	height: 100vh;
-	background-color: rgba(30, 30, 30);
-	border: 2px solid white;
-} */
 #root {
   display: grid;
   width: 95vw;
   margin: 0 auto;
-  /* grid-template-columns: 130px 1050px 130px; */
   grid-template-columns: 125px 1000px 125px;
   grid-template-areas:
     'leftSide middle rightSide'
     'leftSide middle rightSide';
   height: auto;
   justify-content: center;
-  border: 2px solid red;
+  min-width: max-content;
+  /* min-height: max-content; */
   /* max-width: auto; */
   /* max-height: auto; */
-  min-width: max-content;
-  /* min-width: fit-content; */
-  /* min-height: max-content; */
 }
 .leftSide {
   /* font-family: 'Bebas Neue'; */
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* width: 98%; */
   text-align: center;
-  /* justify-content: center; */
   grid-area: leftSide;
   color: white;
-  border: 2px solid blue;
-  /* background-color: aqua; */
-  /* background-color: blue; */
 }
 .current,
 .best {
   margin: 130px auto;
   font-size: 25px;
   text-transform: uppercase;
-  font-weight: 700;
-  /* background-color:rgb(197, 13, 13); */
+  /* font-weight: 500; */
 }
-
 .middle {
   display: flex;
   flex-direction: column;
   gap: 15px;
   grid-area: middle;
-  /* background-color: rgb(131, 13, 13); */
-  /* background-color: rgb(15, 15, 15); */
   background-color: rgb(15, 15, 15);
-  /* min-width: fit-content; */
-  /* border: 3px solid green; */
 }
 .rightSide {
   grid-area: rightSide;
-  /* border: 2px solid blue;; */
-  /* width: 100%; */
-  /* background-color: aqua; */
 }
-
 .game-background-choses {
   display: flex;
-  /* width: min-content; */
   width: 98%;
   height: 100px;
   margin: 0 auto;
   overflow-y: hidden;
   overflow-x: scroll;
-    border: 2px solid white;
-    /* max-width: fit-content; */
-    /* min-width: fit-content; */
 }
 .game-background-choses::-webkit-scrollbar {
   height: 10px;
   background-color: transparent;
   border-radius: 30px;
 }
-
 .game-background-choses::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255);
   background-color: rgba(110, 98, 98, 0.5);
   border-radius: 30px;
 }
@@ -109,78 +72,41 @@ body {
   width: 98%;
   /* height: 70%; */
   margin: 0 auto 20px auto;
-  border: 3px solid green;
+  border: 2px solid rgba(255, 255, 255, 0.863);
   position: relative;
 }
-/* @media screen and (min-width: 1700px) {
-    #root{
-        grid-template-columns: 150px 1600px 150px;
-    }
-    .board-wrapper{
-        width: 1500px;
-        height: 770px;
-    }
-    
-} */
-/* @media screen and (max-width: 1366px) {
-    #root{
-        grid-template-columns: 130px 1050px 130px;
-    }
-    .board-wrapper{
-        width: 1500px;
-        height: 770px;
-    }
-    
-} */
-
 #board {
-  border: 4px solid rgb(255, 255, 255);
-  width: 99%;
-  height: 98%;
-  /* height: max-content; */
-  /* min-height: max-content; */
-
+  width: 100%;
+  height: 100%;
+  filter: blur(0px);
+  transition: filter 1s;
   background-image: url(../images/one.jpg);
   background-repeat: no-repeat;
-  /* box-shadow: inset 10px 10px 100px gray; */
-  /* opacity: 0.3; */
-  /* animation-name: show;
-  animation-duration: 5s;
-  animation-timing-function: ease; */
-  transition: opacity 7s;
-  /* transition-timing-function: ease-in; */
-  /* -webkit-filter: contrast(1.1); */
   background-size: 100% 100%;
 }
-
-input:checked  #board{
-    opacity: 1;
-}
-/* @keyframes show {
-    0%{opasity: 0;}
-    100%{opacity: 1;}
-} */
-
 .fa-palette,
 .fa-brush {
   background-color: transparent;
   font-size: 50px;
-  color: white;
   padding: 10px;
   height: 60%;
   margin: auto auto;
+  background: -webkit-linear-gradient(
+    rgba(255, 0, 0, 0.397),
+    rgba(255, 246, 246, 0.397),
+    rgb(255, 255, 255)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
 .img-c {
   display: inline-block;
-  /* width: 100px; */
   width: 90px;
   height: 60px;
   margin: auto auto;
 }
 .img-c img {
   border-radius: 30%;
-  /* border: 2px solid white; */
   width: 150%;
   height: 70px;
   margin: auto auto;
@@ -195,9 +121,3 @@ input:checked  #board{
   justify-content: space-between;
   width: 100%;
 }
-
-/* @media screen and (min-width: 1400px) {
-  #root {
-    grid-template-columns: 100px 1400px 100px;
-  }
-} */
