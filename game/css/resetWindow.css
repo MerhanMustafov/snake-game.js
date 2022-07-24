@@ -1,0 +1,73 @@
+.reset-window {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+  height: 400px;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(88, 88, 88, 0.7),
+    rgb(121, 119, 119, 0.1)
+  );
+  overflow: hidden;
+  border-radius: transparent;
+  transition: left 0.5s ease-in, width 1s linear 0.6s;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.content-wrapper h2 {
+  text-align: center;
+  font-size: 50px;
+  color: white;
+  min-width: max-content;
+}
+.play {
+  width: max-content;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 10px 20px;
+  font-size: 25px;
+  color: white;
+  /* font-weight: 700; */
+  border-radius: 10px;
+  background: linear-gradient(
+    to bottom,
+    rgb(88, 88, 88, 0.7),
+    rgb(121, 119, 119, 0.7)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+input.selectedImg {
+  display: none;
+}
+
+/* img */
+.imgStyleOnRadioBtnClick img {
+  border: 2px solid white;
+}
+/* img container */
+.imgStyleOnRadioBtnClick {
+  z-index: 1;
+}
+
+#gameOver {
+  display: none;
+}
+
+#gameOver:checked ~ .reset-window {
+  left: 200px;
+  width: 600px;
+}
+
+#gameOver:checked ~ #board {
+  filter: blur(2px);
+}

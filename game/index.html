@@ -1,71 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Canvas</title>
-		<link rel="stylesheet" href="./css/style.css" />
-	</head>
-	<body>
-		<div id="root">
-			<div class="leftSide">
-				<div class="current">
-					<h2>current</h2>
-					<div class="score-c">0</div>
-				</div>
-				<div class="best">
-					<h2>best</h2>
-					<div class="score-b">0</div>
-				</div>
-			</div>
-			<div class="middle">
-				<div class="game-background-choses">
-					<!-- <i class="fa-solid fa-palette"></i> -->
-					<i class="fa-solid fa-brush"></i>
-					<div class="drop-down-images">
-						<div class="img-c">
-							<img src="./images/one.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/two.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/three.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/four.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/five.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/six.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/seven.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/eight.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/nine.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/ten.jpg" alt="" />
-						</div>
-						<div class="img-c">
-							<img src="./images/eleven.jpg" alt="" />
-						</div>
-					</div>
-				</div>
-
-				<canvas id="board"></canvas>
-			</div>
-			<div class="rightSide"></div>
-		</div>
-		<script type="module" src="./index.js"></script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="leftSide">
+        <div class="current">
+          <h2>current</h2>
+          <div class="score-c">0</div>
+        </div>
+        <div class="best">
+          <h2>best</h2>
+          <div class="score-b">0</div>
+        </div>
+      </div>
+      <div class="middle">
+        <div class="game-background-choses">
+          <i class="fa-solid fa-brush"></i>
+          <div class="drop-down-images">
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio1"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio1">
+                <img src="./images/one.jpg" alt="" for="imgRadio" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio2"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio2">
+                <img src="./images/two.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio3"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio3">
+                <img src="./images/three.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio4"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio4">
+                <img src="./images/four.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio5"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio5">
+                <img src="./images/five.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio6"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio6">
+                <img src="./images/six.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio7"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio7">
+                <img src="./images/seven.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio8"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio8">
+                <img src="./images/eight.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio9"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio9">
+                <img src="./images/nine.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio10"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio10">
+                <img src="./images/ten.jpg" alt="" />
+              </label>
+            </div>
+            <div class="img-c">
+              <input
+                type="radio"
+                id="imgRadio11"
+                name="btn"
+                class="selectedImg"
+              />
+              <label for="imgRadio11">
+                <img src="./images/eleven.jpg" alt="" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="board-wrapper">
+          <input type="checkbox" id="gameOver" />
+          <canvas id="board"></canvas>
+          <div class="reset-window">
+            <div class="content-wrapper">
+              <h2>You've lost</h2>
+              <button type="button" class="play">Play again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rightSide"></div>
+    </div>
+    <script type="module" src="./index.js"></script>
+  </body>
 </html>
-
-<!-- width="500" height="200" -->
