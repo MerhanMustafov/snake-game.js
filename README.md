@@ -2,6 +2,7 @@
 
 ### game link: *https://snake-sp-game.pages.dev/*
 
-used: JS/HTML/CSS
+#### used: JS/HTML/CSS
 
-deployed: https://pages.cloudflare.com/ 
+#### deployed: https://pages.cloudflare.com/ 
+
