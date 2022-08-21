@@ -1,6 +1,6 @@
 # snake-game.js
 
-game link: https://snake-sp-game.pages.dev/
+### game link: *https://snake-sp-game.pages.dev/*
 
 used: JS/HTML/CSS
 
